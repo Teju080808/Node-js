@@ -1,16 +1,16 @@
 
 const express=require("express")
-
 const app=express()
 
-app.set("view engine" , "ejs")
+app.set("view engine","ejs")
 app.use(express.urlencoded())
 
 var student=[
   {
     id:1,
-    name:"tej"
-  },{
+    name:"tejal"
+  },
+  {
     id:2,
     name:"teju"
   }
@@ -29,7 +29,7 @@ app.post("/insertData",(req,res)=>{
 
 app.get("/delete",(req,res)=>{
   const id=req.query.id
-  const ans = student.filter( e => e.id != id)
+  const ans=student.filter(e => e.id != id)
   student=ans
   res.redirect("/")
 })
@@ -42,10 +42,12 @@ app.get("/edit",(req,res)=>{
 
 app.post("/editData",(req,res)=>{
   const {id,name}=req.body
-  const index=student.findIndex(e=> e.id == id)
-  if(index != -1){
-    student[index].name=name
-  }
+  student.forEach(e=>{
+    if(e.id == id){
+      e.name=name
+    }
+  })
+
   res.redirect("/")
 })
 
