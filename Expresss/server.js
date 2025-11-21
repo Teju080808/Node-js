@@ -16,6 +16,16 @@ var student=[
   }
 ]
 
+const middleware=((req,res,next)=>{
+  if(req.query.age >=18){
+    next()
+  }
+})
+
+app.get("/contact",middleware,(req,res)=>{
+  res.render("contact")
+})
+
 app.get("/",(req,res)=>{
   res.render("home",{student})
 })
@@ -50,6 +60,8 @@ app.post("/editData",(req,res)=>{
 
   res.redirect("/")
 })
+
+app.use(middleware)
 
 app.listen(3001,()=>{
   console.log("server listen")
